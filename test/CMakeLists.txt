@@ -1,4 +1,5 @@
 set(LAKE_TEST_NAMES
+    test_array
     test_span
 )
 

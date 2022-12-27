@@ -11,6 +11,9 @@
 
 namespace lake {
 
+template <typename T, size_t Size>
+class array;
+
 template <typename T>
 class span {
 public:
@@ -29,7 +32,17 @@ public:
     {
     }
 
-    [[nodiscard]] constexpr T const* data() const { return m_data; }
+    template <size_t Size>
+    constexpr span(array<T, Size> array) // NOLINT(google-explicit-constructor)
+        : m_data(array.data())
+        , m_size(array.size())
+    {
+    }
+
+    [[nodiscard]] constexpr T const* data() const
+    {
+        return m_data;
+    }
     [[nodiscard]] constexpr T* data() { return m_data; }
     [[nodiscard]] constexpr size_t size() const { return m_size; }
     [[nodiscard]] constexpr bool empty() const { return m_size == 0; }
