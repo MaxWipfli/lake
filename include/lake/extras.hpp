@@ -34,4 +34,29 @@ constexpr void swap(T& first, T& second)
     second = move(tmp);
 }
 
+// FIXME: This should only work for unsigned integer types.
+template <typename T>
+constexpr T bit_ceil(T value)
+{
+    T ret = 1;
+    while (ret < value) {
+        ret *= 2;
+    }
+    return ret;
+}
+
+// FIXME: This should only work for unsigned integer types.
+template <typename T>
+constexpr T bit_floor(T value)
+{
+    if (value == 0) {
+        return 0;
+    }
+    T ceil = bit_ceil(value);
+    if (value != ceil) {
+        ceil /= 2;
+    }
+    return ceil;
+}
+
 }
