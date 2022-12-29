@@ -106,12 +106,6 @@ public:
         return true;
     }
 
-    template <typename U>
-    constexpr bool operator!=(span<U> const& other) const
-    {
-        return !operator==(other);
-    }
-
 private:
     T* m_data { nullptr };
     size_t m_size { 0 };

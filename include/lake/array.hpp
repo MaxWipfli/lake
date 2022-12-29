@@ -76,16 +76,6 @@ struct array {
     {
         return this->span() == other;
     }
-    template <typename U, size_t SizeU>
-    constexpr bool operator!=(array<U, SizeU> const& other) const
-    {
-        return !operator==(other);
-    }
-    template <typename U>
-    constexpr bool operator!=(::lake::span<U> const& other) const
-    {
-        return !operator==(other);
-    }
 
     T __data[Size]; // NOLINT(bugprone-reserved-identifier)
 };
