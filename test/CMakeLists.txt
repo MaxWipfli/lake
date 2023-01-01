@@ -2,6 +2,7 @@ set(LAKE_TEST_NAMES
     test_array
     test_extras
     test_span
+    test_vector
 )
 
 include(GoogleTest)
