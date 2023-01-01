@@ -87,14 +87,10 @@ public:
     template <typename U>
     constexpr bool operator==(span<U> const& other) const
     {
-        if (this == &other) {
-            // This is the same span object.
-            return true;
-        }
-        if (this->m_size != other.m_size) {
+        if (this->size() != other.size()) {
             return false;
         }
-        if (this->m_data == other.m_data) {
+        if (this->data() == other.data()) {
             // The span objects point to the same data.
             return true;
         }
