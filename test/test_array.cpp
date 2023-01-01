@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 Max Wipfli <mail@maxwipfli.ch>
+ * SPDX-FileCopyrightText: 2022-2023 Max Wipfli <mail@maxwipfli.ch>
  * SPDX-LicenseIdentifier: MIT
  */
 
@@ -28,4 +28,11 @@ TEST(Array, Fill)
     EXPECT_EQ(arr[1], 42);
 }
 
+TEST(Array, Span)
+{
+    auto arr = lake::array<u8, 4>::filled(42);
+    auto span = arr.span();
+    EXPECT_EQ(span.data(), arr.data());
+    EXPECT_EQ(span.size(), arr.size());
+}
 // FIXME: Copy most tests from test_span.cpp.

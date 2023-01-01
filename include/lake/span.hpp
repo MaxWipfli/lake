@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2022 Max Wipfli <mail@maxwipfli.ch>
+ * SPDX-FileCopyrightText: 2022-2023 Max Wipfli <mail@maxwipfli.ch>
  * SPDX-LicenseIdentifier: MIT
  */
 
@@ -33,7 +33,7 @@ public:
     }
 
     template <size_t Size>
-    constexpr span(array<T, Size> array) // NOLINT(google-explicit-constructor)
+    constexpr span(array<T, Size>& array) // NOLINT(google-explicit-constructor)
         : m_data(array.data())
         , m_size(array.size())
     {
