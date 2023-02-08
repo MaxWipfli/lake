@@ -11,8 +11,8 @@ It should not be used in production code, as it is certainly not bug-free, and m
 * spans and iterators (with `constexpr`)
 
 ## TODO
-* array and fixed array (with/without compile-time known size, `constexpr`)
-* vector, static vector (with maximum capacity)
+* fixed array (without compile-time known size, `constexpr`)
+* static vector (with maximum capacity)
 * hash table and hash map
 * smart pointers (owning and reference-counted)
 
