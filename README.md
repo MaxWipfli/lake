@@ -9,12 +9,16 @@ It should not be used in production code, as it is certainly not bug-free, and m
 
 * primitive fixed-width types (`u8`, `u16`, ...)
 * spans and iterators (with `constexpr`)
+* fixed-size arrays
+* optional values
+* owning smart pointers
 
 ## TODO
-* fixed array (without compile-time known size, `constexpr`)
-* static vector (with maximum capacity)
+* fixed-size vectors (without compile-time known size, `constexpr`)
+* static inline vectors (with maximum capacity)
 * hash table and hash map
-* smart pointers (owning and reference-counted)
+* reference-counted pointers
+* strings
 
 # Build and Install
 
