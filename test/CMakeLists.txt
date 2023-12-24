@@ -3,6 +3,7 @@ set(LAKE_TEST_NAMES
     test_extras
     test_optional
     test_span
+    test_string_view
     test_unique_ptr
     test_vector
 )
