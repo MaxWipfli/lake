@@ -88,3 +88,9 @@ public:
 private:
     int* m_count_ptr;
 };
+
+#define TEST_TODO(test_suite_name, test_name) \
+    TEST(test_suite_name, test_name)          \
+    {                                         \
+        GTEST_SKIP_("TODO");                  \
+    }
