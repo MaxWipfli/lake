@@ -1,6 +1,6 @@
 target_sources(lake
     PRIVATE
-    string_view.cpp
+    dummy.cpp
 )
 
 target_compile_options(lake PRIVATE -nostdinc++)

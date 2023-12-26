@@ -53,10 +53,39 @@ public:
     }
 
     // Utility functions
-    [[nodiscard]] constexpr bool contains(string_view needle) const;
-    [[nodiscard]] constexpr bool contains(char needle) const;
-    [[nodiscard]] constexpr bool starts_with(string_view prefix) const;
-    [[nodiscard]] constexpr bool ends_with(string_view suffix) const;
+    [[nodiscard]] constexpr bool contains(string_view const& needle) const
+    {
+        if (needle.size() > this->size()) {
+            return false;
+        }
+        for (size_t i = 0; i < this->size() + 1 - needle.size(); i++) {
+            if (this->substring(i, needle.size()) == needle) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    [[nodiscard]] constexpr bool contains(char needle) const
+    {
+        return contains(string_view { &needle, 1 });
+    }
+
+    [[nodiscard]] constexpr bool starts_with(string_view const& prefix) const
+    {
+        if (prefix.size() > this->size()) {
+            return false;
+        }
+        return this->substring(0, prefix.size()) == prefix;
+    }
+
+    [[nodiscard]] constexpr bool ends_with(string_view const& suffix) const
+    {
+        if (suffix.size() > this->size()) {
+            return false;
+        }
+        return this->substring(this->size() - suffix.size(), suffix.size()) == suffix;
+    }
 
     constexpr bool operator==(string_view const& other) const
     {
