@@ -20,6 +20,11 @@ public:
         return m_ptr == other.m_ptr;
     }
 
+    constexpr bool operator!=(contiguous_iterator<T> const& other) const
+    {
+        return !(*this == other);
+    }
+
     constexpr contiguous_iterator<T>& operator++()
     {
         m_ptr++;
