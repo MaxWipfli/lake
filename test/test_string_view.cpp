@@ -55,10 +55,60 @@ TEST(StringView, FromLiteral)
     EXPECT_EQ(sv.substring(0, sv.size()), sv);
     EXPECT_EQ(sv.substring(1, 2), "oo");
 
-    EXPECT_DEATH(std::ignore = sv.substring(0, 4), "");
-    EXPECT_DEATH(std::ignore = sv.substring(10, 0), "");
+    EXPECT_DEATH((void)sv.substring(0, 4), "");
+    EXPECT_DEATH((void)sv.substring(10, 0), "");
 }
 
-TEST_TODO(StringView, Contains)
-TEST_TODO(StringView, StartsWithEndsWith)
-TEST_TODO(StringView, Equality)
+TEST(StringView, ContainsChar)
+{
+    auto sv = "foo bar baz"_sv;
+
+    EXPECT_TRUE(sv.contains('f')); // first
+    EXPECT_TRUE(sv.contains(' ')); // middle
+    EXPECT_TRUE(sv.contains('z')); // last
+
+    EXPECT_FALSE(sv.contains('x'));
+    EXPECT_FALSE(sv.contains('\0'));
+}
+
+TEST(StringView, ContainsStringView)
+{
+    auto sv = "foo bar baz"_sv;
+
+    EXPECT_TRUE(sv.contains("f"_sv));
+    EXPECT_TRUE(sv.contains("foo"_sv));
+    EXPECT_TRUE(sv.contains("oo bar"_sv));
+    EXPECT_TRUE(sv.contains("baz"_sv));
+    EXPECT_TRUE(sv.contains(sv));
+
+    EXPECT_FALSE(sv.contains("foobar"_sv));
+    EXPECT_FALSE(sv.contains("bazi"_sv));
+    EXPECT_FALSE(sv.contains("baz\0"_sv));
+}
+
+TEST(StringView, StartsWith)
+{
+    auto sv = "foo bar baz"_sv;
+
+    EXPECT_TRUE(sv.starts_with(""_sv));
+    EXPECT_TRUE(sv.starts_with("f"_sv));
+    EXPECT_TRUE(sv.starts_with("foo"_sv));
+    EXPECT_TRUE(sv.starts_with(sv));
+
+    EXPECT_FALSE(sv.starts_with("oo"_sv));
+    EXPECT_FALSE(sv.starts_with("baz"_sv));
+    EXPECT_FALSE(sv.starts_with("foo bar baz foo"_sv));
+}
+
+TEST(StringView, EndsWidth)
+{
+    auto sv = "foo bar baz"_sv;
+    EXPECT_TRUE(sv.ends_with(""_sv));
+    EXPECT_TRUE(sv.ends_with("z"_sv));
+    EXPECT_TRUE(sv.ends_with("baz"_sv));
+    EXPECT_TRUE(sv.ends_with("foo bar baz"_sv));
+
+    EXPECT_FALSE(sv.ends_with("ba"_sv));
+    EXPECT_FALSE(sv.ends_with("aaa foo bar baz"_sv));
+    EXPECT_FALSE(sv.ends_with("baz\0"_sv));
+}
