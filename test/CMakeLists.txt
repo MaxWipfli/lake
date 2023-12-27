@@ -1,6 +1,7 @@
 set(LAKE_TEST_NAMES
     test_array
     test_extras
+    test_hash
     test_optional
     test_span
     test_string_view
