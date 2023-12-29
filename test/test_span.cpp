@@ -154,4 +154,13 @@ TEST(Span, Subspan)
     EXPECT_DEATH((void)span.subspan((size_t)-1, 2), "");
 }
 
+TEST(Span, FromInitializerList)
+{
+    lake::span<int const> span = { 1, 2, 3 };
+    EXPECT_EQ(span.size(), 3);
+    EXPECT_EQ(span[0], 1);
+    EXPECT_EQ(span[1], 2);
+    EXPECT_EQ(span[2], 3);
+}
+
 // FIXME: Test constexpr functionality.

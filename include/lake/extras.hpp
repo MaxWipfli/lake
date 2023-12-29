@@ -67,4 +67,12 @@ constexpr T bit_floor(T value)
     return ceil;
 }
 
+// Provide access to the data pointer of an initializer list in a clearer way, analogous to std::data().
+// This also avoids the -Winit-list-lifetime warning that occurs when this conversion is performed in-line.
+template <typename T>
+constexpr T const* data(std::initializer_list<T> initializer_list) noexcept
+{
+    return initializer_list.begin();
+}
+
 }

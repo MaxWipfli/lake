@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "extras.hpp"
 #include "iterator.hpp"
 #include "types.hpp"
 #include <assert.h>
@@ -36,6 +37,15 @@ public:
     constexpr span(array<T, Size>& array) // NOLINT(google-explicit-constructor)
         : m_data(array.data())
         , m_size(array.size())
+    {
+    }
+
+    // initializer list constructor
+    // NOTE: This is only possible if `T == U const` or `T == U` and both of them are `const`.
+    template <typename U>
+    constexpr span(std::initializer_list<U> initializer_list)
+        : m_data(lake::data(initializer_list))
+        , m_size(initializer_list.size())
     {
     }
 
