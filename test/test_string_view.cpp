@@ -52,11 +52,11 @@ TEST(StringView, FromConstArray)
 TEST(StringView, FromLiteral)
 {
     auto sv = "foo"_sv;
-    EXPECT_EQ(sv.substring(0, sv.size()), sv);
-    EXPECT_EQ(sv.substring(1, 2), "oo");
+    EXPECT_EQ(sv.subview(0, sv.size()), sv);
+    EXPECT_EQ(sv.subview(1, 2), "oo");
 
-    EXPECT_DEATH((void)sv.substring(0, 4), "");
-    EXPECT_DEATH((void)sv.substring(10, 0), "");
+    EXPECT_DEATH((void)sv.subview(0, 4), "");
+    EXPECT_DEATH((void)sv.subview(10, 0), "");
 }
 
 TEST(StringView, ContainsChar)

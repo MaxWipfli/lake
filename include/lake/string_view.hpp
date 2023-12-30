@@ -46,7 +46,7 @@ public:
     }
 
     // Substring: Only the const version is implemented the data pointed to by a string view is immutable.
-    [[nodiscard]] constexpr string_view substring(size_t start, size_t size) const
+    [[nodiscard]] constexpr string_view subview(size_t start, size_t size) const
     {
         assert(start <= this->size() && (start + size) <= this->size());
         return { this->data() + start, size };
@@ -59,7 +59,7 @@ public:
             return false;
         }
         for (size_t i = 0; i < this->size() + 1 - needle.size(); i++) {
-            if (this->substring(i, needle.size()) == needle) {
+            if (this->subview(i, needle.size()) == needle) {
                 return true;
             }
         }
@@ -76,7 +76,7 @@ public:
         if (prefix.size() > this->size()) {
             return false;
         }
-        return this->substring(0, prefix.size()) == prefix;
+        return this->subview(0, prefix.size()) == prefix;
     }
 
     [[nodiscard]] constexpr bool ends_with(string_view const& suffix) const
@@ -84,7 +84,7 @@ public:
         if (suffix.size() > this->size()) {
             return false;
         }
-        return this->substring(this->size() - suffix.size(), suffix.size()) == suffix;
+        return this->subview(this->size() - suffix.size(), suffix.size()) == suffix;
     }
 
     constexpr bool operator==(string_view const& other) const
