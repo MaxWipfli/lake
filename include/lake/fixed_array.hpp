@@ -163,6 +163,8 @@ private:
     // allocate storage for certain size, with elements remaining uninitialized
     void allocate(size_t size)
     {
+        assert(!m_storage);
+
         if (size == 0) {
             // Skip allocation for zero size.
             return;
