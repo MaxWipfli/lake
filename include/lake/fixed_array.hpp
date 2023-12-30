@@ -84,6 +84,7 @@ public:
     {
         clear();
         m_storage = exchange(other.m_storage, nullptr);
+        return *this;
     }
 
     // destructor
