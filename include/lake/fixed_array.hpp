@@ -22,15 +22,7 @@ public:
     template <typename U>
     fixed_array(lake::span<U> span) // NOLINT(google-explicit-constructor)
     {
-        if (span.empty()) {
-            // Skip allocation for zero size.
-            return;
-        }
-
-        auto storage_ptr = malloc(storage::allocation_bytes(span.size()));
-        assert(storage_ptr);
-        m_storage = static_cast<storage*>(storage_ptr);
-        m_storage->size = span.size();
+        allocate(span.size());
         for (size_t i = 0; i < span.size(); i++) {
             // Copy-construct the elements into their storage slots.
             // Remove const-ness from T* (if present) to allow modifying the slot.
@@ -44,16 +36,8 @@ public:
     {
         // TODO: Reuse storage if the new data has the same number of elements.
         clear();
+        allocate(span.size());
 
-        if (span.empty()) {
-            // Skip allocation for size 0.
-            return *this;
-        }
-
-        auto storage_ptr = malloc(storage::allocation_bytes(span.size()));
-        assert(storage_ptr);
-        m_storage = static_cast<storage*>(storage_ptr);
-        m_storage->size = span.size();
         for (size_t i = 0; i < span.size(); i++) {
             // Copy-construct the elements into their storage slots.
             new (&m_storage->data[i]) T(span.at(i));
@@ -172,6 +156,20 @@ public:
     }
 
 private:
+    // allocate storage for certain size, with elements remaining uninitialized
+    void allocate(size_t size)
+    {
+        if (size == 0) {
+            // Skip allocation for zero size.
+            return;
+        }
+
+        auto storage_ptr = malloc(storage::allocation_bytes(size));
+        assert(storage_ptr);
+        m_storage = static_cast<storage*>(storage_ptr);
+        m_storage->size = size;
+    }
+
     // Storage for the fixed_array. This needs to always be allocated with the number of bytes returned by
     // allocation_bytes(size). Once constructed and initialized, it is expected that `data` contains exactly `size`
     // initialized values of type T.
