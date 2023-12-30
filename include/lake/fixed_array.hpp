@@ -59,14 +59,17 @@ public:
     }
 
     // copy constructor/assignment operator (via span constructor/assignment operator)
-    template <typename U>
-    explicit fixed_array(fixed_array<U> const& other)
+    fixed_array(fixed_array<T> const& other)
         : fixed_array(other.span())
     {
     }
-    template <typename U>
-    fixed_array<T>& operator=(fixed_array<U> const& other)
+    fixed_array<T>& operator=(fixed_array<T> const& other)
     {
+        if (this == &other) {
+            // self-assignment
+            return *this;
+        }
+
         *this = other.span();
         return *this;
     }
