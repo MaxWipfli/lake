@@ -18,10 +18,7 @@ target_compile_options(lake PRIVATE -Werror -Wall -Wextra)
 
 # Installation
 include(GNUInstallDirs)
-install(TARGETS lake
-    LIBRARY DESTINATION ${CMAKE_INSTALL_DIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
+install(TARGETS lake FILE_SET public_headers)
 
 # Testing (with GoogleTest)
 enable_testing()
