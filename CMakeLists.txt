@@ -7,9 +7,8 @@ set(CMAKE_CXX_STANDARD 20)
 add_library(lake SHARED)
 set_target_properties(lake PROPERTIES VERSION ${PROJECT_VERSION})
 
+# Add sources and includes
 add_subdirectory(src)
-target_include_directories(lake PRIVATE include/lake)
-target_include_directories(lake PRIVATE src)
 
 # Do not include C++ standard library
 target_compile_options(lake PRIVATE -nostdinc++)
